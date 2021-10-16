@@ -1,0 +1,132 @@
+.container-menu{
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    color: #707070;
+    flex-wrap: wrap;
+    align-content: stretch;
+    align-items: center;   
+}
+.home,.account,.logout{
+    background-color: #fff;
+    border: none;
+    font-weight: bold;
+    color: #707070;
+    padding: 15px 100px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.tamTotal{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+}
+.tamCinquenta{
+    width: 50%;
+    
+}
+.name{
+    color: #707070;
+    font-family: Helvetica;
+    font-style: italic;
+    font-weight: bold;
+    border-bottom: solid 6px #B5C401;
+}
+.newBetMegaSena{
+    font-family: Helvetica;
+    font-size: 24px;
+    color: #707070;
+    padding: 4% 0 0 25%;
+}
+.newbet{
+    color: #707070;
+    font-style: italic;
+    font-weight: bold;   
+}
+.choose{
+    color: #707070;
+    padding: 4% 0 0 25%;
+    font-family: Helvetica;
+    font-size: 17px;
+    font-style: italic;
+    font-weight: bold;
+}
+.tamCinquenta2{
+    width: 50%;
+
+}
+.cart{
+    color: #707070;
+    font-size: 25px;
+    font-style: italic;
+    font-weight: bold;
+    padding: 2% 0 0 7%;
+}
+.fillBet{
+    padding: 2% 0 0 25%;
+}
+.tittleBet{
+    color: #707070;
+    font-size: 17px;
+    font-style: italic;
+    font-weight: bold;
+}
+.textBet{
+    color: #707070;
+    font-size: 14px;
+}
+.game{
+    padding: 2% 0 0 25%;
+    text-align: center;
+}
+.lotofacil{
+    color: #7F3992;
+    border-color: #7F3992;
+    background-color: #fff;
+    cursor: pointer;
+    height: 35px;
+    width: 90px;
+    outline: none;
+    line-height: 30px;
+    font-family: Helvetica;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 30px;
+    transition:linear  1s;
+}
+.Mega-Sena{
+    color: #01AC66;
+    border-color: #01AC66;
+    background-color: #fff;
+    cursor: pointer;
+    height: 35px;
+    width: 90px;
+    font-family: Helvetica;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    border-radius: 30px;
+    transition: linear 1s;
+}
+.Lotomania{
+    color: #F79C31;
+    border-color: #F79C31;
+    background-color: #fff;
+    line-height: 30px;
+    font-family: Helvetica;
+    height: 35px;
+    width: 90px;
+    font-size: 12px;
+    font-weight: bold;
+   cursor: pointer;
+    border-radius: 30px;
+    transition:linear 1s ;
+}
+.numbersGamer{
+    
+}
