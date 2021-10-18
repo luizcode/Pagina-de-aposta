@@ -82,7 +82,6 @@
 }
 .game{
     padding: 2% 0 0 25%;
-    text-align: center;
 }
 .lotofacil{
     color: #7F3992;
@@ -123,10 +122,80 @@
     width: 90px;
     font-size: 12px;
     font-weight: bold;
-   cursor: pointer;
+    cursor: pointer;
     border-radius: 30px;
     transition:linear 1s ;
 }
 .numbersGamer{
-    
+    padding: 2% 0 0 25%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: space-evenly;
+}
+.buttonsNumbers{
+    border: none;
+    background-color: #ADC0C4;
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    cursor: pointer;
+    color: #fff;
+    text-align: center;
+}
+.functionsButton{
+    padding: 2% 0 0 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly
+}
+.complete{
+    line-height: 30px;
+    height: 35px;
+    width: 130px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    outline: none;
+    color: #27C383;
+    border-color: #27C383;
+    background-color: #FFF;
+}
+.complete:active{
+    background-color:#27C383;
+    color: #FFF;
+}
+.clear{
+    line-height: 30px;
+    height: 35px;
+    width: 130px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    color: #27C383;
+    border-color: #27C383;
+    background-color: #FFF;
+}
+.clear:active{
+    background-color:#27C383;
+    color: #FFF;
+}
+.addCart{
+    line-height: 30px;
+    height: 35px;
+    width: 130px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    color: #FFF;
+    border-color: #27C383;
+    background-color: #27C383;
+}
+.addCart:active{
+    background-color: #000;
+    border: #000;
 }
