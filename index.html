@@ -1,55 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <link rel="stylesheet" href="style.css">
-    <meta charset="UTF-8">
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
     <title>Prova JS</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container-menu">
-        <h1 class="name">TGL</h1>
-        <div class="buttons">
-            <button class="home">Home</button>
-            <button class="account">Account</button>
-            <button class="logout">Log Out</button>
-        </div> 
+      <h1 class="name">TGL</h1>
+      <div class="buttons">
+        <button class="home">Home</button>
+        <button class="account">Account</button>
+        <button class="logout">Log Out</button>
+      </div>
     </div>
     <div class="tamTotal">
-        <div class="tamCinquenta">
-            <div class="newBetMegaSena">
-                <span class="newbet">NEW BET</span> <span class="megaSena">FOR MEGA-SENA</span>
-            </div>
-            <div class="choose">
-                Choose a game
-            </div>
-            <div class="game" data-js="buttonsGame">
-                <button class="lotofacil" data-js="lotofacil"></button>
-                <button class="Mega-Sena" data-js="megasena"></button>
-                <button class="Lotomania" data-js="quina"></button>
-            </div>
-            <div class="fillBet">
-                <span class="tittleBet">
-                    Fill your bet <br>
-                </span>
-                <span class="textBet" data-js="game-description"></span>
-            </div>
-            <div id="nButton" class="numbersGamer">
-            </div>
-            <div class="functionsButton">
-                <button class="complete">
-                    Complete Game
-                </button>
-                <button class="clear">
-                    Clear Game
-                </button>
-                <button class="addCart">
-                    Add to cart
-                </button>
-            </div>
+      <div class="tamCinquenta">
+        <div class="newBetMegaSena">
+          <span class="newbet">NEW BET</span>
+          <span class="megaSena">FOR MEGA-SENA</span>
         </div>
-        <span class="cart">
-            CART
-        </span>
+        <div class="choose">Choose a game</div>
+        <div class="game" data-js="buttonsGame">
+        <div class="fillBet">
+          <span class="tittleBet"> Fill your bet <br /> </span>
+          <span class="textBet" data-js="game-description"></span>
+        </div>
+        <div id="nButton" class="numbersGamer"></div>
+        <div class="functionsButton">
+          <button class="complete">Complete Game</button>
+          <button class="clear">Clear Game</button>
+          <button class="addCart">Add to cart</button>
+        </div>
+      </div>
+      <span class="cart"> CART </span>
     </div>
     <script src="js/dom.js"></script>
     <script src="js/main.js"></script>

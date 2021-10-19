@@ -83,25 +83,7 @@
 .game{
     padding: 2% 0 0 25%;
 }
-.lotofacil{
-    color: #7F3992;
-    border-color: #7F3992;
-    background-color: #fff;
-    cursor: pointer;
-    height: 35px;
-    width: 90px;
-    outline: none;
-    line-height: 30px;
-    font-family: Helvetica;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 30px;
-    transition:linear  1s;
-}
-.Mega-Sena{
-    color: #01AC66;
-    border-color: #01AC66;
-    background-color: #fff;
+.cfgButton{
     cursor: pointer;
     height: 35px;
     width: 90px;
@@ -110,21 +92,6 @@
     font-weight: bold;
     line-height: 30px;
     border-radius: 30px;
-    transition: linear 1s;
-}
-.Lotomania{
-    color: #F79C31;
-    border-color: #F79C31;
-    background-color: #fff;
-    line-height: 30px;
-    font-family: Helvetica;
-    height: 35px;
-    width: 90px;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 30px;
-    transition:linear 1s ;
 }
 .numbersGamer{
     padding: 2% 0 0 25%;
@@ -132,13 +99,14 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-content: space-around;
-    justify-content: space-evenly;
+    justify-content: flex-start;
 }
 .buttonsNumbers{
     border: none;
     background-color: #ADC0C4;
     width: 40px;
     height: 40px;
+    margin: 0 5px 5px 0;
     border-radius: 30px;
     cursor: pointer;
     color: #fff;

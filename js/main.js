@@ -3,15 +3,11 @@
 
   function init() {
     getGame();
-    renderNumbersButton();
-  }
+    renderGameName();
 
-  let $button1 = new DOM('[data-js="lotofacil"]');
-  let $button2 = new DOM('[data-js="megasena"]');
-  let $button3 = new DOM('[data-js="quina"]');
-  let $span1 = new DOM('[data-js="game-description"]');
-  let $span2 = new DOM('[data-js="game-description"]');
-  let $span3 = new DOM('[data-js="game-description"]');
+  }
+  let gameTypeList = [];
+  let gameTypeButtonList = [];
 
   function getGame() {
     const ajax = new win.XMLHttpRequest();
@@ -19,10 +15,9 @@
     ajax.send();
     ajax.addEventListener("readystatechange", getInfo, false);
   }
+
   function getInfo() {
-    if (!responseOk(this.readyState, this.status)) return;
-    renderGameName(JSON.parse(this.responseText));
-    renderNumbersButton(JSON.parse(this.responseText));
+    return !responseOk(this.readyState, this.status);
   }
 
   function responseOk(readyState, status) {
@@ -31,82 +26,60 @@
     return readyState === completeState && status === statusOK;
   }
 
-  function renderGameName(game) {
-    $button1.on(
-      "click",
-      function (e) {
-        e.preventDefault();
-        let el = doc.querySelector('[data-js="lotofacil"]');
-        el.style.cssText = "color:  #fff;" + "background-color: #7F3992;";
-        getButtonPressedB1()
-      },
-      true
+  function renderGameName() {
+    const $buttonsGameGroup = new DOM('[data-js="buttonsGame"]').get();
+    const $fragment = doc.createDocumentFragment();
+    gameTypeList.forEach(
+      function(gameTypeObject){
+        const $div = doc.createElement('div');
+        $div.classList.add('buttonsGame');
+
+        $div.appendChild(createGameTypeButtonElement(gameTypeObject));
+        $fragment.appendChild($div);
+      }
     );
-    $button2.on(
-      "click",
-      function (e) {
-        e.preventDefault();
-        let el = doc.querySelector('[data-js="megasena"]');
-        el.style.cssText = "color:  #fff;" + "background-color: #01AC66;";
-        getButtonPressedB2();
-      },
-      false
-    );
-    $button3.on(
-      "click",
-      function (e) {
-        e.preventDefault();
-        let el = doc.querySelector('[data-js="quina"]');
-        el.style.cssText = "color:  #fff;" + "background-color: #F79C31;";
-        getButtonPressed3()
-      },
-      false
-    );
-    $button1.get()[0].textContent = game.types[0].type;
-    $button2.get()[0].textContent = game.types[1].type;
-    $button3.get()[0].textContent = game.types[2].type;
+    $buttonsGameGroup.appendChild($fragment);
+  } 
+  
+  function createGameTypeButtonElement(gameTypeObject){
+    let $gameButton = doc.createElement('button');
+    $gameButton.setAttribute('data-js', gameTypeObject.type);
+    $gameButton.classList.add("cfgButton");
+    $gameButton.style.setProperty("color", gameTypeObject.color);
+    $gameButton.style.setProperty("border-color", gameTypeObject.color);
+    $gameButton.textContent = gameTypeObject.type;
+    $gameButton.addEventListener("click", handleGameButtonClick);
+    $gameButton.addEventListener("mouseover", function(e){
+      let gameButtonElement = e.target;
+      setSelectStyleButton(
+        gameButtonElement,
+        getGameObjectByName(e.target.getAttribute("data-js")).color
+      )
+    })
+    $gameButton.addEventListener('mouseout',function(e){
+      let gameButtonElement = e.target;
+      let gameObject = getGameObjectByName(e.target.getAttribute("data-js"));
+      if (selectedGame.type === gameObject.type)return;
+      setUnselectStyleToButton(gameButtonElement, gameObject.color);
+    });
+
+    gameTypeButtonList.push($gameButton);
+    
+    return $gameButton;
   }
 
-
-    function getButtonPressedB1(){
-        if($button1.on() === $button1.on()){
-            renderDescriptionB1(JSON.parse(this.responseText));
-        }
-    }
-
-    function getButtonPressedB2(){
-        if($button2.on() === $button2.on()){
-            renderDescriptionB2(JSON.parse(this.responseText));
-
-        }
-    }
-    function getButtonPressed3(){
-        if($button3.on() === $button3.on()){
-            renderDescriptionB3(JSON.parse(this.responseText));
-        }
-    }
-    function renderDescriptionB1(description) {
-        $span1.get()[0].textContent = description.types[0].description;
-    }
-
-    function renderDescriptionB2(description) {
-        $span2.get()[0].textContent = description.types[1].description;
-    }
-
-    function renderDescriptionB3(description) {
-        $span3.get()[0].textContent = description.types[2].description;
-    }
-
-  function renderNumbersButton(number) {
-    let totNumbers = number.types[2].range;
-    for (let i = 1; i <= totNumbers; i++) {
-      let $button = doc.createElement("span");
-      let textButton = document.createTextNode(`${i}`);
-      $button.appendChild(textButton);
-      $button.innerHTML = `<button class="buttonsNumbers" data-js="numButtons">${i}</button>`;
-      doc.getElementById("nButton").appendChild($button);
-    }
+  function setSelectStyleButton(buttonElement){
+    buttonElement.style.background = buttonElement.style.borderColor;
+    buttonElement.style.color = "#FFF";
+    buttonElement.style.fontWeight = "bold";
   }
 
+  function setUnselectStyleToButton(){
+    buttonElement.style.background = "transparent";
+    buttonElement.style.color = "buttonElement.style.borderColor";
+    buttonElement.style.fontWeight = "normal";
+
+  }
+  
   init();
 })(window.dom, document, window);
