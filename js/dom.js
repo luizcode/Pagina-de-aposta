@@ -1,8 +1,11 @@
 (function (doc, win) {
 	'use strict';
-	function DOM(selectedNode) {
-		this.element = doc.querySelectorAll(selectedNode);
-	}
+	function DOM (elements) {
+		if (!(this instanceof DOM)) {
+		  return new DOM(elements);
+		}
+		this.element = doc.querySelectorAll(elements);
+	  }
 	DOM.prototype.on = function (eventType, callbackEvent) {
 		Array.prototype.map.call(this.element, function (element) {
 			element.addEventListener(eventType, callbackEvent);

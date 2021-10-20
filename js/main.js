@@ -1,14 +1,25 @@
-(function (DOM, doc, win) {
+(function ($, doc, win) {
   "use strict";
+  
+  let gameTypeList = [];
+  
+  let gameTypeButtonList = [];
+  
+  let selectedGame = {
+    "type": "",
+    "description": "",
+    "range": 0,
+    "price": 0,
+    "max-number": "", //Nao tem como pegar pelo push
+    "color": ""
+  }
 
   function init() {
     getGame();
     renderGameName();
 
   }
-  let gameTypeList = [];
-  let gameTypeButtonList = [];
-
+  
   function getGame() {
     const ajax = new win.XMLHttpRequest();
     ajax.open("GET", "./games.json", true);
@@ -17,30 +28,45 @@
   }
 
   function getInfo() {
-    return !responseOk(this.readyState, this.status);
-  }
+    if(!responseOk){
+      return;
+    }
+  let data = JSON.parse(this.responseText);
+  data.types.map((item)=>{
+    gameTypeList.push(
+      {
+        type: item.type,
+        description : item.description,
+        range: item.range,
+        price: item.price,
+        maxNumber: item["max-number"],
+        color: item.color
+      }
+    );
+  })
+}
 
   function responseOk(readyState, status) {
     let statusOK = 200;
     let completeState = 4;
     return readyState === completeState && status === statusOK;
   }
-
   function renderGameName() {
-    const $buttonsGameGroup = new DOM('[data-js="buttonsGame"]').get();
+    const $buttonsGameGroup = $('[data-js="buttonsGame"]').get();
     const $fragment = doc.createDocumentFragment();
-    gameTypeList.forEach(
-      function(gameTypeObject){
-        const $div = doc.createElement('div');
-        $div.classList.add('buttonsGame');
-
-        $div.appendChild(createGameTypeButtonElement(gameTypeObject));
-        $fragment.appendChild($div);
-      }
-    );
-    $buttonsGameGroup.appendChild($fragment);
-  } 
-  
+    console.log(gameTypeList);
+    gameTypeList.map((item) => {
+      console.log(item)
+      })
+  //   gameTypeList.forEach(
+  //     function(gameTypeObject){
+  //       const $div = doc.createElement('div');
+  //         $div.classList.add('buttonsGame');
+  //         $div.appendChild(createGameTypeButtonElement(gameTypeObject));
+  //         $fragment.appendChild($div);
+  // })
+}
+   
   function createGameTypeButtonElement(gameTypeObject){
     let $gameButton = doc.createElement('button');
     $gameButton.setAttribute('data-js', gameTypeObject.type);
@@ -48,7 +74,7 @@
     $gameButton.style.setProperty("color", gameTypeObject.color);
     $gameButton.style.setProperty("border-color", gameTypeObject.color);
     $gameButton.textContent = gameTypeObject.type;
-    $gameButton.addEventListener("click", handleGameButtonClick);
+    $gameButton.addEventListener("click", handleGameButtonClick,false);
     $gameButton.addEventListener("mouseover", function(e){
       let gameButtonElement = e.target;
       setSelectStyleButton(
@@ -62,7 +88,6 @@
       if (selectedGame.type === gameObject.type)return;
       setUnselectStyleToButton(gameButtonElement, gameObject.color);
     });
-
     gameTypeButtonList.push($gameButton);
     
     return $gameButton;
@@ -78,8 +103,9 @@
     buttonElement.style.background = "transparent";
     buttonElement.style.color = "buttonElement.style.borderColor";
     buttonElement.style.fontWeight = "normal";
-
   }
-  
+  // function handleGameButtonClick(){
+
+  // }
   init();
 })(window.dom, document, window);
