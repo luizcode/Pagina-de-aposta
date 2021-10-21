@@ -1,5 +1,6 @@
-(function ($, doc, win) {
+(function ($, doc) {
   "use strict";
+  var teste = "to aqui"
   
   let gameTypeList = [];
   
@@ -8,6 +9,10 @@
   let $gameDescriptionText = $('[data-js="game-description"]').get();
 
   let selectedNumbersElementList = [];
+  
+  let $typeGameText = $('[data-js="game-name"]').get();
+  
+  const unSelectedNumberBackground = "#ADC0C4";
   
   let selectedGame = {
     "type": "",
@@ -35,8 +40,10 @@
     }
     const data = JSON.parse(this.responseText);
     gameTypeList = data.types;
-    renderGameName();
-}
+    renderGameName(
+      changeTypeGame("Lotofácil"),
+      );
+  }
 
   function responseOk(readyState, status) {
     let statusOK = 200;
@@ -55,35 +62,38 @@
         $fragment.appendChild($div);
       })
       $buttonsGameGroup.appendChild($fragment);
-    }
-
-    function createGameTypeButtonElement(gameTypeObject){
-      let $gameButton = doc.createElement('button');
-      $gameButton.setAttribute('data-js', gameTypeObject.type);
-      $gameButton.classList.add("cfgButton");
-      $gameButton.style.setProperty("color", gameTypeObject.color);
-      $gameButton.style.setProperty("border-color", gameTypeObject.color);
-      $gameButton.textContent = gameTypeObject.type;
-      $gameButton.addEventListener("click", GameButtonClick,false);
-      $gameButton.addEventListener("mouseover", function(e){
-        let gameButtonElement = e.target;
-        setSelectStyleButton(
-          gameButtonElement, 
-          getGameObjectByName(e.target.getAttribute("data-js")).color
-        )
-      })
-      $gameButton.addEventListener('mouseout',function(e){
-        let gameButtonElement = e.target;
-        let gameObject = getGameObjectByName(e.target.getAttribute("data-js"));
-        if (selectedGame.type === gameObject.type)return;
-        setUnselectStyleToButton(gameButtonElement, gameObject.color);
-      });
-      gameTypeButtonList.push($gameButton);
-      
-      return $gameButton;
   }
-  function getGameObjectByName(){
 
+  function createGameTypeButtonElement(gameTypeObject){
+    let $gameButton = doc.createElement('button');
+    $gameButton.setAttribute('data-js', gameTypeObject.type);
+    $gameButton.classList.add("cfgButton");
+    $gameButton.style.setProperty("color", gameTypeObject.color);
+    $gameButton.style.setProperty("border-color", gameTypeObject.color);
+    $gameButton.textContent = gameTypeObject.type;
+    $gameButton.addEventListener("click", GameButtonClick);
+    $gameButton.addEventListener("mouseover", function(e){
+      let gameButtonElement = e.target;
+      setSelectStyleButton(
+        gameButtonElement, 
+        getGameObjectByName(e.target.getAttribute("data-js")).color
+      );
+    })
+    $gameButton.addEventListener('mouseout',function(e){
+      let gameButtonElement = e.target;
+      let gameObject = (e.target.getAttribute("data-js"));
+      if (selectedGame.type === gameObject.type)return;
+      setUnselectStyleToButton(gameButtonElement, gameObject.color);
+    });
+    gameTypeButtonList.push($gameButton);
+    
+    return $gameButton;
+  }
+
+  function getGameObjectByName(gameName){
+    return gameTypeList.filter(function(gameObject){
+      return gameObject.type === gameName;
+    })[0];
   }
 
   function setSelectStyleButton(buttonElement){
@@ -92,28 +102,74 @@
     buttonElement.style.fontWeight = "bold";
   }
 
-  function setUnselectStyleToButton(){
+  function setUnselectStyleToButton(buttonElement){
     buttonElement.style.background = "transparent";
-    buttonElement.style.color = "buttonElement.style.borderColor";
+    buttonElement.style.color = buttonElement.style.borderColor;
     buttonElement.style.fontWeight = "normal";
   }
+
   function changeTypeGame(newTypeGame){
     selectedGame = getGameObjectByName(newTypeGame);
 
     $gameDescriptionText.textContent = selectedGame.description;
-    $typeGameText.textContent = selectedGame.type;
+     $typeGameText.textContent = selectedGame.type.toUpperCase();
 
     selectedNumbersElementList = [];
+    buildNumbersTypeGame(selectedGame.range)
 
     gameTypeButtonList.forEach(function(gameButtonElement){
-      if(gameButtonElement.getAttribute("data-js")=== selectedGame.type){
+      if(gameButtonElement.getAttribute("data-js") === selectedGame.type){
         setSelectStyleButton(gameButtonElement);
       }else{
         setUnselectStyleToButton(gameButtonElement);
       }
+    });
+  }
 
-    })
-   }
+  function buildNumbersTypeGame(numbersQntd){
+    const $numbersGame = $('[data-js="numbersGame"]').get();
+    const $fragment = doc.createDocumentFragment();
+    $numbersGame.innerText = '';
+    for(let i = 1; i <= numbersQntd; i++){
+      let $buttonNumber = doc.createElement('button');
+      $buttonNumber.classList.add('buttonsNumbers');
+      $buttonNumber.addEventListener('click', clickNumberButton) 
+      $fragment.appendChild($buttonNumber);
+      $buttonNumber.textContent = i;
+    }
+    $numbersGame.appendChild($fragment);
+  }
+
+  function clickNumberButton(e){
+    e.preventDefault();
+    let numberElement = e.target;
+    
+    if(
+      selectedNumbersElementList.indexOf(numberElement) === -1 && selectedNumbersElementList.length === selectedGame["max-number"]
+    ){
+      window.alert(
+        "Ja selecionou todos os números máximos permitidos para esse game :)"
+      )
+      return;
+    }
+    selectNumber(numberElement, true);
+  }
+
+  function selectNumber(numberElement, removeRepeated){
+    let indexForSelectedElement = 
+    selectedNumbersElementList.indexOf(numberElement);
+
+    if(indexForSelectedElement !== -1){
+      if(!removeRepeated) return;
+
+      numberElement.style.backgroundColor = unSelectedNumberBackground;
+      selectedNumbersElementList.splice(indexForSelectedElement , 1);
+
+      return;
+    }
+    selectedNumbersElementList.push(numberElement);
+    numberElement.style.backgroundColor = selectedGame.color;
+  }
 
   function GameButtonClick(e){
     e.preventDefault();
