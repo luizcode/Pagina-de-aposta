@@ -3,5 +3,7 @@
         "lotofacil",
         "Lotomania",
         "megasena"
-    ]
+    ],
+    "editor.fontFamily": "'JetBrains Mono'",
+    "editor.fontSize": 14
 }

@@ -16,8 +16,11 @@
 			element.removeEventListener(eventType, callbackEvent);
 		});
 	};
-	DOM.prototype.get = function () {
-		return this.element;
+	DOM.prototype.get = function (index) {
+		if (this.element.length === 1 || index === undefined) {
+			return this.element[0];
+		}
+		return this.element[index];
 	};
 	DOM.prototype.forEach = function (callbackEvent) {
 		return Array.prototype.forEach.call(this.element, callbackEvent);

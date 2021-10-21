@@ -82,11 +82,13 @@
 }
 .game{
     padding: 2% 0 0 25%;
+    display: flex;
+    justify-content: space-between;
 }
 .cfgButton{
     cursor: pointer;
-    height: 35px;
-    width: 90px;
+    height: 45px;
+    width: 110px;
     font-family: Helvetica;
     font-size: 12px;
     font-weight: bold;
