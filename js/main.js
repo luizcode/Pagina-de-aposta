@@ -25,6 +25,12 @@
 
   function init() {
     getGame();
+    initEvents();
+  }
+  
+  function initEvents(){
+    $('[data-js="clearButton"]').on('click', clickClearGame);
+    $('[data-js="completeGame"]').on('click', clickCompleteGame);
   }
   
   function getGame() {
@@ -178,5 +184,47 @@
     changeTypeGame(newTypeGame);
   }
 
+  function removeAllSelectedElements(){
+    selectedNumbersElementList.forEach(function(numberElement){
+      numberElement.style.backgroundColor = unSelectedNumberBackground;
+    })
+    selectedNumbersElementList = [];
+  }
+
+  function clickClearGame(){
+    removeAllSelectedElements();
+  }
+
+  function clickCompleteGame(){
+    if(selectedNumbersElementList.length === selectedGame["max-number"]){
+      removeAllSelectedElements();
+    }
+    randomlySelectNumbers();
+  }
+
+  function randomlySelectNumbers(){
+    const numberOfGameArea = doc.querySelector('[data-js="numbersGame"]');
+    while(selectedNumbersElementList.length < selectedGame["max-number"]){
+      var index = Math.ceil(Math.random() * (selectedGame.range-1));
+      var number = numberOfGameArea.childNodes[index];
+      selectedNumber(number, false)
+    }
+  }
+
+  function selectedNumber(numberElement, removeRepeated){
+    var indexForSelectedElement =
+    selectedNumbersElementList.indexOf(numberElement);
+
+    if (indexForSelectedElement !== -1){
+      if(!removeRepeated) return;
+
+      numberElement.style.backgroundColor = unSelectedNumberBackground;
+      selectedNumbersElementList.splice(indexForSelectedElement , 1);
+
+      return;
+    }
+    selectedNumbersElementList.push(numberElement);
+    numberElement.style.backgroundColor = selectedGame.color;
+  }
   init();
 })(window.dom, document, window);
