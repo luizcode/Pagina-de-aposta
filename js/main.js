@@ -1,6 +1,6 @@
 (function ($, doc) {
   "use strict";
-  var teste = "to aqui"
+  
   
   let gameTypeList = [];
   
@@ -13,14 +13,19 @@
   let $typeGameText = $('[data-js="game-name"]').get();
   
   const unSelectedNumberBackground = "#ADC0C4";
+
+  let cartItens = [];
+
+  let cartTotalPrice = 0.0;
   
   let selectedGame = {
     "type": "",
     "description": "",
     "range": 0,
     "price": 0,
-    "max-number": "",
-    "color": ""
+    "max-number": 0,
+    "color": "",
+    "min-cart-value": 0,
   }
 
   function init() {
@@ -31,6 +36,7 @@
   function initEvents(){
     $('[data-js="clearButton"]').on('click', clickClearGame);
     $('[data-js="completeGame"]').on('click', clickCompleteGame);
+    $('[data-js="addCart"]').on('click', clickAddCart);
   }
   
   function getGame() {
@@ -47,7 +53,7 @@
     const data = JSON.parse(this.responseText);
     gameTypeList = data.types;
     renderGameName(
-      changeTypeGame("Lotofácil"),
+      changeTypeGame("Lotofácil")
       );
   }
 
@@ -74,18 +80,22 @@
     let $gameButton = doc.createElement('button');
     $gameButton.setAttribute('data-js', gameTypeObject.type);
     $gameButton.classList.add("cfgButton");
+
     $gameButton.style.setProperty("color", gameTypeObject.color);
     $gameButton.style.setProperty("border-color", gameTypeObject.color);
+
     $gameButton.textContent = gameTypeObject.type;
+
     $gameButton.addEventListener("click", GameButtonClick);
+
     $gameButton.addEventListener("mouseover", function(e){
       let gameButtonElement = e.target;
       setSelectStyleButton(
         gameButtonElement, 
         getGameObjectByName(e.target.getAttribute("data-js")).color
       );
-    })
-    $gameButton.addEventListener('mouseout',function(e){
+    });
+    $gameButton.addEventListener("mouseout",function(e){
       let gameButtonElement = e.target;
       let gameObject = (e.target.getAttribute("data-js"));
       if (selectedGame.type === gameObject.type)return;
@@ -103,13 +113,13 @@
   }
 
   function setSelectStyleButton(buttonElement){
-    buttonElement.style.background = buttonElement.style.borderColor;
+    buttonElement.style.backgroundColor = buttonElement.style.borderColor;
     buttonElement.style.color = "#FFF";
     buttonElement.style.fontWeight = "bold";
   }
 
   function setUnselectStyleToButton(buttonElement){
-    buttonElement.style.background = "transparent";
+    buttonElement.style.backgroundColor = "transparent";
     buttonElement.style.color = buttonElement.style.borderColor;
     buttonElement.style.fontWeight = "normal";
   }
@@ -180,8 +190,9 @@
   function GameButtonClick(e){
     e.preventDefault();
     var newTypeGame = e.target.getAttribute("data-js");
-    
     changeTypeGame(newTypeGame);
+    setSelectStyleButton(newTypeGame);
+
   }
 
   function removeAllSelectedElements(){
@@ -226,5 +237,58 @@
     selectedNumbersElementList.push(numberElement);
     numberElement.style.backgroundColor = selectedGame.color;
   }
+
+  function clickAddCart(e){
+    e.preventDefault();
+
+    if(selectedNumbersElementList.length <selectedGame["max-number"]){
+      let restNumbers = 
+        Number(selectedGame["max-number"]) - selectedNumbersElementList.length;
+      return window.alert(
+        "Faltam "+ restNumbers + " números para ser selecionados"
+      )
+    }
+    if (cartItens.length === 0) removeNoItensTextRow();
+
+    addNumbersToCart();
+
+    removeAllSelectedElements();
+  }
+
+  function addNumbersToCart(){
+    let cartItemObject = {
+      selectedGame: [],
+      typeGame: "",
+      price: 0.0
+    };
+
+    let selectedNumbersList =selectedNumbersElementList.map(function(numberElement){
+      return numberElement.textContent;
+    });
+
+    selectedNumbersList.sort();
+
+    cartItemObject.selectedGame = selectedNumbersList.reduce(function(
+      acumulado,
+      number,
+      index,
+      array
+    ) {
+      if(index !== array.length -1){
+        return acumulado + number + ", ";
+      }
+      return acumulado + number + " . ";
+    },"");
+
+    cartItemObject.typeGame = selectedGame.type;
+    cartItemObject.price = selectedGame.price;
+
+    cartTotalPrice += cartItemObject.price;
+
+    updateTotalPriceText();
+
+    addItemCartElement(cartItemObject);
+  }
+
   init();
 })(window.dom, document, window);

@@ -1,3 +1,7 @@
+*{
+    background-color: #F7F7F7;
+}
+
 .container-menu{
     display: flex;
     text-align: center;
@@ -9,7 +13,6 @@
     align-items: center;   
 }
 .home,.account,.logout{
-    background-color: #fff;
     border: none;
     font-weight: bold;
     color: #707070;
@@ -64,13 +67,6 @@
 .tamCinquenta2{
     width: 50%;
 
-}
-.cart{
-    color: #707070;
-    font-size: 25px;
-    font-style: italic;
-    font-weight: bold;
-    padding: 2% 0 0 7%;
 }
 .fillBet{
     padding: 2% 0 0 25%;
@@ -173,4 +169,17 @@
 .addCart:active{
     background-color: #000;
     border: #000;
+}
+.cart{
+    color: #707070;
+    font-size: 25px;
+    background-color: transparent;
+    font-weight: bold;
+}
+.fundo{
+    width: 20%;
+    height: 100%;
+    margin-left: 6%;
+    padding: 4% 0 0 1%;
+    background-color: #FFFFFF;
 }
