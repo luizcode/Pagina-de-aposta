@@ -1,7 +1,15 @@
-*{
-    background-color: #F7F7F7;
+.telaInteira{
+    background-color: #f7f7f7;
+    width: 100%;
+    height: 100vh;
 }
-
+.menuzao{
+    display: flex;
+    justify-content: space-between;
+}
+.menu2{
+    width: 30%;
+}
 .container-menu{
     display: flex;
     text-align: center;
@@ -11,12 +19,15 @@
     flex-wrap: wrap;
     align-content: stretch;
     align-items: center;   
+    width: 30%;
+    padding: 0px 0 0 10%;
 }
 .home,.account,.logout{
     border: none;
+    background: transparent;
     font-weight: bold;
     color: #707070;
-    padding: 15px 100px;
+    padding: 15px 25px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -84,12 +95,13 @@
 .game{
     padding: 2% 0 0 25%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start
 }
 .cfgButton{
-    cursor: pointer;
-    height: 45px;
-    width: 110px;
+    height: 35px;
+    margin-right: 10px;
+    border-style: solid;
+    width: 100px;
     font-family: Helvetica;
     font-size: 12px;
     font-weight: bold;
@@ -116,19 +128,20 @@
     text-align: center;
 }
 .functionsButton{
-    padding: 2% 0 0 20%;
+    padding: 2% 0 0 25%;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly
+    justify-content: space-between;
 }
 .complete{
     line-height: 30px;
     height: 35px;
-    width: 130px;
+    width: 110px;
     font-size: 12px;
     font-weight: bold;
     cursor: pointer;
-    border-radius: 30px;
+    border-radius: 10px;
+    border-style: solid;
     outline: none;
     color: #27C383;
     border-color: #27C383;
@@ -137,15 +150,17 @@
 .complete:active{
     background-color:#27C383;
     color: #FFF;
+    border-style: solid;
 }
 .clear{
     line-height: 30px;
     height: 35px;
-    width: 130px;
+    width: 110px;
     font-size: 12px;
     font-weight: bold;
+    border-style: solid;
     cursor: pointer;
-    border-radius: 30px;
+    border-radius: 10px;
     color: #27C383;
     border-color: #27C383;
     background-color: #FFF;
@@ -159,9 +174,10 @@
     height: 35px;
     width: 130px;
     font-size: 12px;
+    border-style: solid;
     font-weight: bold;
     cursor: pointer;
-    border-radius: 30px;
+    border-radius: 10px;
     color: #FFF;
     border-color: #27C383;
     background-color: #27C383;
@@ -172,14 +188,69 @@
 }
 .cart{
     color: #707070;
+    padding: 0 0 0 25px;
     font-size: 25px;
     background-color: transparent;
     font-weight: bold;
 }
-.fundo{
-    width: 20%;
+
+.container-cart{
+    width: 25%;
     height: 100%;
-    margin-left: 6%;
-    padding: 4% 0 0 1%;
+    border-radius: 15px 15px 0px 0px;
+    margin-left: 10%;
+    padding: 2% 0 0 0;
     background-color: #FFFFFF;
+}
+.itemCart{
+    width: 100%;
+    display: flex;
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.container-text{
+    width: 50%;
+}
+.trash{
+    width: 10%;
+    padding: 0 10px 0 0;
+    background: transparent;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 3px;
+    border-left: none;
+    border-right: solid;
+}
+.textNumberSelected{
+    font-size: 12px;
+    color: #868686;
+
+}
+.gameTextStyle{
+    font-size: 12px;
+    font-weight: bold;
+}
+.gamePriceTextStyle{
+    font-size: 12px;
+    color: #868686;
+}
+.buttonSaveBet{
+    width: 100%;
+    font-size: 30px;
+    border-radius: 0 0 15px 15px;
+    background-color: #f4f4f4;
+    color: #27C383;
+    border: solid 1px #E2E2E2;
+    font-weight: bolder;
+}
+.cartPriceTotal{
+    font-size: 24px;
+    padding: 15px 0 15px 25px;
+    color: #707070;
+}
+[data-js="carrovazio"]{
+    padding: 0px 0 0 25px;
 }
